@@ -50,6 +50,7 @@ define(['controller/selectionController', 'model/cacheModel', 'component/_CRUDCo
             this);
         },
         twitter: function() {
+            $("#username").val("Hola Mundo");
             alert('Twitter');
         },
         facebook: function() {

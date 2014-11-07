@@ -70,7 +70,7 @@ define(['controller/selectionController', 'model/cacheModel', 'component/_CRUDCo
                     $("#email").val(response.email);
                     $("#name").val(response.name);
                     $("#firstName").val(response.first_name);
-                    $("#lastName").val(response.lastName);
+                    $("#lastName").val(response.last_name);
                     $("#gender").val(response.gender);
                 });
             }, function(e){

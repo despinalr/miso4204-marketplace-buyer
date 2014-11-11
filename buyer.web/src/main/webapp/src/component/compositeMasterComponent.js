@@ -36,24 +36,30 @@ define(['controller/selectionController', 'model/cacheModel', 'model/buyerMaster
                     self.model.unset('id');
                 }
 
-				App.Utils.fillCacheList(
-					'creditCard',
-					self.model,
-					self.creditCardComponent.getDeletedRecords(),
-					self.creditCardComponent.getUpdatedRecords(),
-					self.creditCardComponent.getCreatedRecords()
-				);
+                App.Utils.fillCacheList(
+                        'creditCard',
+                        self.model,
+                        self.creditCardComponent.getDeletedRecords(),
+                        self.creditCardComponent.getUpdatedRecords(),
+                        self.creditCardComponent.getCreatedRecords()
+                );
 
-				App.Utils.fillCacheList(
-					'address',
-					self.model,
-					self.addressComponent.getDeletedRecords(),
-					self.addressComponent.getUpdatedRecords(),
-					self.addressComponent.getCreatedRecords()
-				);
+                App.Utils.fillCacheList(
+                        'address',
+                        self.model,
+                        self.addressComponent.getDeletedRecords(),
+                        self.addressComponent.getUpdatedRecords(),
+                        []
+                );
 
                 self.model.save({}, {
                     success: function() {
+                        var addresses = self.addressComponent.getCreatedRecords();
+                        for (i = 0; i < addresses.length; i++) {
+                            var addressModel = new App.Model.AddressModel();
+                            addressModel.set(addresses[i]);
+                            addressModel.save();
+                        }
                         Backbone.trigger(self.masterComponent.componentId + '-' + 'post-buyer-save', {view: self, model : self.model});
                     },
                     error: function(error) {
